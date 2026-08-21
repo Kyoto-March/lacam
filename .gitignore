@@ -44,4 +44,3 @@ map
 scen
 **/local/
 .clangd
-.cache/
