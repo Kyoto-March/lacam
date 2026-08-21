@@ -1,12 +1,11 @@
-# lacam0
+# lacam
 
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
-[![CI](https://github.com/Kei18/lacam0/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kei18/lacam0/actions/workflows/ci.yml)
+[![CI](https://github.com/Kyoto-March/lacam/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Kyoto-March/lacam/actions/workflows/ci.yml)
 
-This repository provides a basic implementation of [LaCAM](https://kei18.github.io/lacam-project/) for multi-agent pathfinding (MAPF).
-The code has been cleaned up and refactored from the original repositories with the aim of making LaCAM easier to extend.
+An implementation of [LaCAM](https://kei18.github.io/lacam-project/) for multi-agent pathfinding (MAPF).
 See ["Implemented Techniques"](#implemented-techniques) to find out what has been implemented.
-For advanced one, please check the project page.
+For advanced techniques, please check the project page.
 
 ![](./assets/mapf.gif)
 
@@ -18,7 +17,7 @@ The code is written in C++(17).
 First, clone this repo with submodules.
 
 ```sh
-git clone --recursive {this repo}
+git clone --recursive https://github.com/Kyoto-March/lacam.git
 ```
 
 Then, build the project.
@@ -41,9 +40,18 @@ You can find details of all parameters with:
 build/main --help
 ```
 
+### Anytime Mode
+
+Use `--anytime` to enable tree-rewiring refinement (LaCAM*), which iteratively improves the solution quality within the time limit.
+For example, [`my_best_result.txt`](my_best_result.txt) was generated with:
+
+```sh
+build/main -i assets/random-32-32-10-random-1.scen -m assets/random-32-32-10.map -N 400 -v 3 -t 10 --anytime -o my_best_result.txt
+```
+
 ## Visualizer
 
-This repository is compatible with [kei18@mapf-visualizer](https://github.com/kei18/mapf-visualizer).
+This repository is compatible with [mapf-visualizer](https://github.com/kei18/mapf-visualizer).
 For example,
 
 ```sh
@@ -61,35 +69,17 @@ mapf-visualizer assets/random-32-32-10.map build/result.txt
 
 ### Roadmaps
 
-I may integrate the following techniques:
+The following techniques may be integrated in the future:
 - regret learning [[SoCS-25]](https://arxiv.org/abs/2505.12623)
 - iterative refinement (aka. LNS) [[IROS-21]](https://kei18.github.io/mapf-IR/)
-
-## Experiment Utilities
-
-You can use [kei18@mapf-lib-exp](https://github.com/Kei18/mapf-lib-exp/), written in Julia.
-
-### Setup
-
-```sh
-git submodule add git@github.com:Kei18/mapf-lib-exp.git scripts
-sh scripts/setup.sh
-```
-
-### Usage
-
-```sh
-julia --project=scripts/ --threads=auto
-> include("scripts/eval.jl"); main("scripts/config/mapf-bench.yaml")
-```
-
-The results will be stored in `../data`
-
 
 ## License
 
 This software is released under the MIT License, see [LICENSE.txt](LICENSE.txt).
 
+## Acknowledgments
+
+This project is based on [lacam0](https://github.com/Kei18/lacam0) by Keisuke Okumura.
 
 ## Notes
 
