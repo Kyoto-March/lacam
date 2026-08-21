@@ -73,6 +73,27 @@ The following techniques may be integrated in the future:
 - regret learning [[SoCS-25]](https://arxiv.org/abs/2505.12623)
 - iterative refinement (aka. LNS) [[IROS-21]](https://kei18.github.io/mapf-IR/)
 
+## Experiment Utilities
+
+You can use [mapf-lib-exp](https://github.com/Kei18/mapf-lib-exp/), written in Julia.
+
+### Setup
+
+```sh
+git submodule add git@github.com:Kei18/mapf-lib-exp.git scripts
+sh scripts/setup.sh
+```
+
+### Usage
+
+```sh
+julia --project=scripts/ --threads=auto
+> include("scripts/eval.jl"); main("scripts/config/mapf-bench.yaml")
+```
+
+The results will be stored in `../data`
+
+
 ## License
 
 This software is released under the MIT License, see [LICENSE.txt](LICENSE.txt).
