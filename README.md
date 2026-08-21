@@ -40,13 +40,37 @@ You can find details of all parameters with:
 build/main --help
 ```
 
-### Anytime Mode
+### Anytime Mode [[IJCAI-23]](https://kei18.github.io/lacam2)
 
 Use `--anytime` to enable tree-rewiring refinement (LaCAM*), which iteratively improves the solution quality within the time limit.
 For example, [`my_best_result.txt`](my_best_result.txt) was generated with:
 
 ```sh
 build/main -i assets/random-32-32-10-random-1.scen -m assets/random-32-32-10.map -N 400 -v 3 -t 10 --anytime -o my_best_result.txt
+```
+
+### PIBT Swap [[IJCAI-23]](https://kei18.github.io/lacam2)
+
+PIBT Swap is **enabled by default**. When two agents face each other in a narrow corridor (head-on deadlock), the swap heuristic detects this and coordinates a pull-aside maneuver at the nearest branching point. Use `--no_pibt_swap` to fall back to vanilla PIBT:
+
+```sh
+build/main -i assets/random-32-32-10-random-1.scen -m assets/random-32-32-10.map -N 400 -v 3 --no_pibt_swap
+```
+
+### Hindrance Heuristic [[SoCS-25]](https://arxiv.org/abs/2505.12623)
+
+Hindrance is **enabled by default**. It penalizes moves that would block or increase the distance of adjacent higher-priority agents, reducing congestion in bottleneck regions. Use `--no_pibt_hindrance` to disable:
+
+```sh
+build/main -i assets/random-32-32-10-random-1.scen -m assets/random-32-32-10.map -N 400 -v 3 --no_pibt_hindrance
+```
+
+### Multi-threaded Distance Table
+
+By default, distance tables for all agents are precomputed in parallel using multi-threading. Use `--no_dist_table_init` to switch to lazy single-threaded BFS (computes on demand):
+
+```sh
+build/main -i assets/random-32-32-10-random-1.scen -m assets/random-32-32-10.map -N 400 -v 3 --no_dist_table_init
 ```
 
 ## Visualizer
